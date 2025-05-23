@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { User, Menu, LogOut, Book, Users, GraduationCap, Calendar, FileText, ClipboardList } from 'lucide-react';
+import { User, Menu, LogOut, Book, Users, GraduationCap } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import ProfileDropdown from './ProfileDropdown';
 
@@ -24,14 +24,12 @@ const Navbar = () => {
         return [
           { path: '/faculty', label: 'Dashboard', icon: <GraduationCap className="w-5 h-5" /> },
           { path: '/faculty/courses', label: 'Courses', icon: <Book className="w-5 h-5" /> },
-          { path: '/faculty/attendance', label: 'Attendance', icon: <Calendar className="w-5 h-5" /> },
-          { path: '/faculty/assignments', label: 'Assignments', icon: <FileText className="w-5 h-5" /> },
-          { path: '/faculty/grading', label: 'Grading', icon: <ClipboardList className="w-5 h-5" /> },
-          { path: '/faculty/students', label: 'Students', icon: <Users className="w-5 h-5" /> },
         ];
       case 'student':
         return [
           { path: '/student', label: 'Dashboard', icon: <GraduationCap className="w-5 h-5" /> },
+          { path: '/student/available-courses', label: 'Available Courses', icon: <Book className="w-5 h-5" /> },
+          { path: '/student/enrolled-courses', label: 'Enrolled Courses', icon: <Book className="w-5 h-5" /> },
         ];
       default:
         return [];

@@ -15,11 +15,11 @@ const FacultyCourses = () => {
   const [newCourse, setNewCourse] = useState<Partial<Course>>({
     name: '',
     code: '',
+    description: '',
+    faculty: faculty.name,
     department: faculty.department,
     semester: '1',
     credits: 3,
-    description: '',
-    faculty: faculty.name,
     enrolledStudents: []
   });
   
@@ -27,16 +27,16 @@ const FacultyCourses = () => {
   const facultyCourses = courses.filter(course => course.faculty === faculty.name);
 
   const handleAddCourse = () => {
-    if (newCourse.name && newCourse.code && newCourse.department) {
+    if (newCourse.name && newCourse.code) {
       const course: Course = {
         id: `C${Math.floor(1000 + Math.random() * 9000)}`,
         name: newCourse.name,
         code: newCourse.code,
-        department: newCourse.department || faculty.department,
-        semester: newCourse.semester || '1',
-        credits: newCourse.credits || 3,
         description: newCourse.description || '',
         faculty: faculty.name,
+        department: faculty.department,
+        semester: '1',
+        credits: 3,
         enrolledStudents: []
       };
       
@@ -44,11 +44,11 @@ const FacultyCourses = () => {
       setNewCourse({
         name: '',
         code: '',
+        description: '',
+        faculty: faculty.name,
         department: faculty.department,
         semester: '1',
         credits: 3,
-        description: '',
-        faculty: faculty.name,
         enrolledStudents: []
       });
       setShowAddModal(false);
@@ -122,18 +122,6 @@ const FacultyCourses = () => {
                   <p className="text-gray-700">{course.description || 'No description provided.'}</p>
                 </div>
                 
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-blue-100 text-blue-800">
-                    {course.department}
-                  </span>
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-green-100 text-green-800">
-                    Semester {course.semester}
-                  </span>
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-purple-100 text-purple-800">
-                    {course.credits} Credits
-                  </span>
-                </div>
-                
                 <div className="mt-4 flex items-center justify-between">
                   <span className="text-sm text-gray-500">
                     {course.enrolledStudents?.length || 0} Students Enrolled
@@ -177,35 +165,6 @@ const FacultyCourses = () => {
                       value={newCourse.code || ''}
                       onChange={(e) => setNewCourse({ ...newCourse, code: e.target.value })}
                       required
-                    />
-                  </div>
-                  <div className="text-left">
-                    <label htmlFor="semester" className="block text-sm font-medium text-gray-700">
-                      Semester
-                    </label>
-                    <select
-                      id="semester"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={newCourse.semester || '1'}
-                      onChange={(e) => setNewCourse({ ...newCourse, semester: e.target.value })}
-                    >
-                      {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
-                        <option key={sem} value={sem.toString()}>{sem}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="text-left">
-                    <label htmlFor="credits" className="block text-sm font-medium text-gray-700">
-                      Credits
-                    </label>
-                    <input
-                      type="number"
-                      id="credits"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={newCourse.credits || 3}
-                      onChange={(e) => setNewCourse({ ...newCourse, credits: parseInt(e.target.value) })}
-                      min={1}
-                      max={5}
                     />
                   </div>
                   <div className="text-left">
@@ -273,35 +232,6 @@ const FacultyCourses = () => {
                       value={currentCourse.code}
                       onChange={(e) => setCurrentCourse({ ...currentCourse, code: e.target.value })}
                       required
-                    />
-                  </div>
-                  <div className="text-left">
-                    <label htmlFor="edit-semester" className="block text-sm font-medium text-gray-700">
-                      Semester
-                    </label>
-                    <select
-                      id="edit-semester"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={currentCourse.semester}
-                      onChange={(e) => setCurrentCourse({ ...currentCourse, semester: e.target.value })}
-                    >
-                      {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
-                        <option key={sem} value={sem.toString()}>{sem}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="text-left">
-                    <label htmlFor="edit-credits" className="block text-sm font-medium text-gray-700">
-                      Credits
-                    </label>
-                    <input
-                      type="number"
-                      id="edit-credits"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={currentCourse.credits}
-                      onChange={(e) => setCurrentCourse({ ...currentCourse, credits: parseInt(e.target.value) })}
-                      min={1}
-                      max={5}
                     />
                   </div>
                   <div className="text-left">
